@@ -1,23 +1,48 @@
-# RéclaPro — première intégration Supabase
+# RéclaPro — prototype sans base de données
 
-Cette version connecte le tableau de bord au projet Supabase `lfcdibgulsjrrctvtqbp`.
+Prototype front-end en français pour une plateforme SaaS de gestion des réclamations multi-entreprises.
 
-## Déploiement sur GitHub Pages
-1. Extrayez ce ZIP.
-2. Téléversez les fichiers et dossiers à l'intérieur de `reprosaas-de-main/` à la racine du dépôt GitHub, en remplaçant les fichiers existants. Ne téléversez pas seulement le ZIP.
-3. Attendez le déploiement GitHub Pages.
-4. Ouvrez `https://bbrahimbenali197-stack.github.io/reprosaas-de/auth.html`.
-5. Créez un compte de test. Si Supabase demande une confirmation par e-mail, confirmez puis reconnectez-vous. Si l'espace entreprise n'a pas été créé pendant l'inscription, le formulaire vous proposera de terminer cette étape.
+## Ouvrir le prototype
 
-## Ce qui est relié
-- Authentification e-mail / mot de passe avec Supabase Auth.
-- Création d'un espace entreprise via la fonction SQL `create_company_for_current_user`.
-- Lecture des réclamations de l'entreprise connectée.
-- Création de réclamations internes et mise à jour des statuts.
-- Déconnexion.
+- Téléchargez ou extrayez le ZIP.
+- Ouvrez `index.html` dans un navigateur récent.
+- Aucune installation, compilation ou commande n'est nécessaire.
 
-## Important
-- `config.js` contient uniquement l'URL du projet et sa clé publique publishable. N'ajoutez jamais une clé `service_role` dans le site.
-- Le formulaire de dépôt public anonyme n'est pas activé. Il nécessite une fonction serveur, validation et protection anti-abus.
-- Les statuts disponibles sont ceux du schéma Supabase actuel : Nouvelle, En cours, Résolue, Clôturée.
-- Cette première intégration a passé les vérifications de syntaxe JavaScript, mais doit encore être testée dans le navigateur après publication. N'utilisez pas de données personnelles réelles avant ces tests.
+## Fonctionnalités présentes
+
+- Tableau de bord avec statistiques calculées depuis les données de démonstration.
+- Liste de réclamations avec recherche et filtres.
+- Création d'une réclamation fictive.
+- Détail d'une réclamation et modification de son statut.
+- Annuaire de trois entreprises fictives.
+- Aperçu du portail public.
+- Mise en page adaptée aux téléphones et ordinateurs.
+- Sauvegarde locale dans `localStorage` du navigateur, si autorisée.
+
+## Limites importantes
+
+Ce dépôt contient uniquement un prototype front-end. Il ne possède pas :
+- de base de données distante ;
+- de véritable connexion ou gestion de comptes ;
+- de séparation de sécurité entre entreprises ;
+- de backend, notifications par e-mail ou pièces jointes sécurisées ;
+- de paiements ou d'abonnements ;
+- de système d'audit fiable.
+
+**N'utilisez pas ce prototype pour des réclamations réelles, des données personnelles ou des informations confidentielles.** Le stockage local du navigateur n'est pas une base de données sécurisée. Les exemples de clients et entreprises sont fictifs.
+
+## Publier gratuitement avec GitHub Pages
+
+1. Créez un dépôt GitHub privé ou public selon votre préférence. Pour GitHub Pages, vérifiez les limites et conditions applicables aux dépôts privés de votre compte ; le plus simple pour un prototype public est généralement un dépôt public.
+2. Dans le dépôt, cliquez sur **Add file → Upload files**.
+3. Extrayez le ZIP sur votre ordinateur avant l'envoi : téléversez les fichiers `index.html`, `styles.css`, `app.js` et `README.md` à la racine du dépôt, pas le ZIP lui-même.
+4. Cliquez sur **Commit changes**.
+5. Ouvrez **Settings → Pages**.
+6. Sous **Build and deployment**, choisissez **Deploy from a branch**, puis la branche `main` et le dossier `/ (root)`, et cliquez sur **Save**.
+7. Attendez la publication et utilisez l'adresse affichée dans **Settings → Pages**.
+
+GitHub Pages héberge un site statique. Cela ne crée pas de backend ni de base de données.
+
+## Prochaine phase du projet
+
+Quand le prototype sera validé, ajouter une base de données et un backend adaptés, l'authentification, des politiques d'accès multi-tenant vérifiées, la gestion des rôles, des journaux d'audit, la validation des données, des sauvegardes et les obligations légales applicables avant toute mise en production.
