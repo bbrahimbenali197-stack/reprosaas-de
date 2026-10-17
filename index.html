@@ -2,52 +2,121 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Boutique DZ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prototype de plateforme de gestion des réclamations multi-entreprises.">
+  <title>RéclaPro — Gestion des réclamations</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <div class="top"><div class="brand">Boutique <span>DZ</span></div>
-    <button class="cart" onclick="openCart()">🛒 Panier <b id="cartCount">0</b></button>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="RéclaPro accueil">
+        <span class="brand-mark">R</span>
+        <span><strong>RéclaPro</strong><small>Gestion des réclamations</small></span>
+      </a>
+      <div class="workspace-label">ESPACE DE DÉMONSTRATION</div>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span> Tableau de bord</button>
+        <button class="nav-item" data-view="complaints"><span class="nav-icon">▤</span> Réclamations <span class="nav-count" id="navCount">8</span></button>
+        <button class="nav-item" data-view="companies"><span class="nav-icon">▥</span> Entreprises</button>
+        <button class="nav-item" data-view="public"><span class="nav-icon">↗</span> Portail public</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="demo-note"><span class="status-dot"></span><div><strong>Mode prototype</strong><small>Données fictives uniquement</small></div></div>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Paramètres</button>
+        <div class="profile">
+          <div class="avatar">AD</div><div class="profile-text"><strong>Administrateur</strong><small>Compte de démonstration</small></div><span class="profile-menu">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Ouvrir le menu">☰</button>
+        <div class="breadcrumb">Plateforme <span>/</span> <strong id="breadcrumbTitle">Tableau de bord</strong></div>
+        <div class="top-actions">
+          <span class="demo-pill"><span></span> Démonstration</span>
+          <button class="icon-button" id="helpButton" aria-label="Informations">?</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="page-heading">
+          <div><p class="eyebrow">VUE D'ENSEMBLE</p><h1>Bonjour, administrateur <span class="wave">👋</span></h1><p class="muted">Voici l'activité de votre plateforme de réclamations.</p></div>
+          <button class="primary-button" id="newComplaintTop"><span>＋</span> Nouvelle réclamation</button>
+        </div>
+        <div class="notice"><span class="notice-icon">i</span><div><strong>Prototype sans base de données</strong><p>Les dossiers ci-dessous sont fictifs. Les modifications sont enregistrées uniquement dans ce navigateur.</p></div><button class="notice-close" id="dismissNotice" aria-label="Masquer l'avis">×</button></div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total des réclamations</span><span class="stat-icon indigo">▤</span></div><div class="stat-value" id="statTotal">8</div><div class="stat-foot"><span class="stat-neutral">Tous les dossiers</span></div></article>
+          <article class="stat-card"><div class="stat-top"><span>À traiter</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="statOpen">5</div><div class="stat-foot"><span class="mini-dot orange-dot"></span> En attente d'action</div></article>
+          <article class="stat-card"><div class="stat-top"><span>En cours</span><span class="stat-icon blue">↻</span></div><div class="stat-value" id="statProgress">2</div><div class="stat-foot"><span class="mini-dot blue-dot"></span> Traitement actif</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Résolues / clôturées</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="statDone">3</div><div class="stat-foot"><span class="mini-dot green-dot"></span> Dossiers terminés</div></article>
+        </div>
+        <div class="content-grid">
+          <section class="panel recent-panel">
+            <div class="panel-heading"><div><h2>Réclamations récentes</h2><p class="muted">Derniers dossiers enregistrés dans la démonstration</p></div><button class="text-button" data-goto="complaints">Voir toutes <span>→</span></button></div>
+            <div class="table-wrap"><table><thead><tr><th>RÉFÉRENCE</th><th>CLIENT</th><th>ENTREPRISE</th><th>STATUT</th><th>PRIORITÉ</th></tr></thead><tbody id="recentRows"></tbody></table></div>
+          </section>
+          <section class="panel distribution-panel">
+            <div class="panel-heading"><div><h2>État des dossiers</h2><p class="muted">Répartition actuelle</p></div></div>
+            <div id="statusDistribution" class="distribution"></div>
+            <div class="panel-divider"></div>
+            <div class="mini-summary"><div><span class="summary-bullet purple"></span><span>Entreprises inscrites</span></div><strong id="companyTotal">3</strong></div>
+            <div class="mini-summary"><div><span class="summary-bullet teal"></span><span>Catégories utilisées</span></div><strong>5</strong></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-complaints">
+        <div class="page-heading"><div><p class="eyebrow">SUIVI OPÉRATIONNEL</p><h1>Réclamations</h1><p class="muted">Consultez, filtrez et mettez à jour les dossiers de démonstration.</p></div><button class="primary-button" id="newComplaintList"><span>＋</span> Nouvelle réclamation</button></div>
+        <section class="panel">
+          <div class="filters">
+            <div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher une référence, un client…" aria-label="Rechercher"></div>
+            <select id="statusFilter" aria-label="Filtrer par statut"><option value="">Tous les statuts</option></select>
+            <select id="companyFilter" aria-label="Filtrer par entreprise"><option value="">Toutes les entreprises</option></select>
+            <select id="priorityFilter" aria-label="Filtrer par priorité"><option value="">Toutes les priorités</option><option>Urgente</option><option>Élevée</option><option>Normale</option><option>Faible</option></select>
+          </div>
+          <div class="table-wrap"><table class="complaints-table"><thead><tr><th>RÉFÉRENCE</th><th>CLIENT</th><th>ENTREPRISE</th><th>CATÉGORIE</th><th>DATE</th><th>STATUT</th><th>PRIORITÉ</th><th></th></tr></thead><tbody id="complaintRows"></tbody></table></div>
+          <div class="table-footer"><span id="resultsCount">8 réclamations</span><span>Affichage de démonstration</span></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-companies">
+        <div class="page-heading"><div><p class="eyebrow">ORGANISATIONS</p><h1>Entreprises</h1><p class="muted">Exemple d'annuaire des organisations utilisant la plateforme.</p></div><button class="primary-button" id="addCompanyButton"><span>＋</span> Ajouter une entreprise</button></div>
+        <div class="notice"><span class="notice-icon">i</span><div><strong>Annuaire fictif</strong><p>Ces entreprises sont des exemples et ne sont pas des clientes réelles de la plateforme.</p></div></div>
+        <div class="company-grid" id="companyGrid"></div>
+      </section>
+
+      <section class="view" id="view-public">
+        <div class="page-heading"><div><p class="eyebrow">CÔTÉ CLIENT</p><h1>Portail public</h1><p class="muted">Aperçu du parcours d'un client qui souhaite déposer une réclamation.</p></div><span class="public-preview-tag">Aperçu</span></div>
+        <div class="public-hero">
+          <div class="public-hero-copy"><span class="public-kicker">VOTRE DEMANDE, NOTRE PRIORITÉ</span><h2>Une réclamation ?<br><span>Nous sommes à votre écoute.</span></h2><p>Choisissez l'entreprise concernée et décrivez votre problème. Vous pourrez ensuite suivre son traitement avec votre référence.</p><button class="primary-button" id="publicSubmitButton">Déposer une réclamation <span>→</span></button></div>
+          <div class="public-illustration"><div class="illustration-circle">✓</div><div class="floating-card card-one"><span class="floating-icon">▤</span><div><strong>Dossier créé</strong><small>Référence attribuée</small></div><span class="tiny-check">✓</span></div><div class="floating-card card-two"><span class="floating-icon orange">◷</span><div><strong>Suivi transparent</strong><small>Statut actualisé</small></div></div><div class="illustration-lines"></div></div>
+        </div>
+        <div class="public-info-grid"><article><span class="info-number">01</span><h3>Décrivez le problème</h3><p>Fournissez les informations nécessaires pour comprendre votre demande.</p></article><article><span class="info-number">02</span><h3>Recevez une référence</h3><p>Conservez le numéro de dossier pour retrouver votre réclamation.</p></article><article><span class="info-number">03</span><h3>Suivez le traitement</h3><p>Consultez les étapes de prise en charge de votre demande.</p></article></div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-heading"><div><p class="eyebrow">CONFIGURATION</p><h1>Paramètres</h1><p class="muted">Informations indicatives sur ce prototype.</p></div></div>
+        <div class="settings-grid"><section class="panel settings-panel"><h2>Profil de la plateforme</h2><p class="muted">Les paramètres ci-dessous ne sont pas connectés à un serveur.</p><label>Nom de la plateforme<input value="RéclaPro" disabled></label><label>Langue de l'interface<input value="Français" disabled></label><label>Mode de stockage<input value="Données de démonstration dans le navigateur" disabled></label><div class="settings-warning">Les comptes, permissions, emails, paiements et sauvegardes distantes ne sont pas encore implémentés.</div></section><section class="panel settings-panel"><h2>Données de démonstration</h2><p class="muted">Tu peux réinitialiser les exemples si tu souhaites recommencer.</p><button class="secondary-button" id="resetData">Réinitialiser les données de démonstration</button><p class="small-note">Cette action efface les modifications enregistrées localement dans ce navigateur.</p></section></div>
+      </section>
+
+      <footer class="app-footer"><span>RéclaPro · Prototype initial</span><span>Pas encore destiné à des données réelles</span></footer>
+    </main>
   </div>
-  <div class="hero"><div><p class="tag">🇩🇿 Livraison partout en Algérie</p>
-    <h1>Des produits utiles,<br><span>au meilleur prix.</span></h1>
-    <p>Commandez en ligne. Paiement à la livraison.</p>
-    <a href="#products" class="btn">Voir les produits</a></div></div>
-</header>
 
-<main id="products">
-  <div class="section-head"><h2>Nos produits</h2><input id="search" placeholder="Rechercher un produit..." oninput="renderProducts()"></div>
-  <div id="productsGrid" class="grid"></div>
-</main>
+  <div class="modal-backdrop" id="complaintModal" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><div><p class="eyebrow">NOUVEAU DOSSIER</p><h2 id="modalTitle">Créer une réclamation</h2><p class="muted">Les données resteront dans ce navigateur.</p></div><button class="close-button" data-close-modal aria-label="Fermer">×</button></div>
+      <form id="complaintForm">
+        <div class="form-grid"><label>Nom du client *<input name="customer" required maxlength="80" placeholder="Ex. Amine B." /></label><label>Entreprise concernée *<select name="company" id="newCompanySelect" required></select></label><label>Catégorie *<select name="category" required><option value="">Sélectionner</option><option>Livraison</option><option>Retard</option><option>Facturation</option><option>Service client</option><option>Produit endommagé</option><option>Autre</option></select></label><label>Priorité<select name="priority"><option>Normale</option><option>Faible</option><option>Élevée</option><option>Urgente</option></select></label><label class="full-width">Objet de la réclamation *<input name="subject" required maxlength="120" placeholder="Résumez le problème en quelques mots" /></label><label class="full-width">Description *<textarea name="description" rows="4" required maxlength="1200" placeholder="Décrivez le problème (données fictives uniquement)…"></textarea></label></div>
+        <div class="form-actions"><button type="button" class="secondary-button" data-close-modal>Annuler</button><button type="submit" class="primary-button">Créer le dossier</button></div>
+      </form>
+    </section>
+  </div>
 
-<section class="why"><h2>Pourquoi commander chez nous ?</h2>
-  <div class="features"><div>🚚 <b>Livraison</b><small>Partout en Algérie</small></div>
-  <div>💵 <b>Paiement à la livraison</b><small>Payez à la réception</small></div>
-  <div>📞 <b>Service client</b><small>Nous confirmons votre commande</small></div></div>
-</section>
-
-<footer>© 2026 Boutique DZ — Tous droits réservés</footer>
-
-<div id="cartModal" class="modal hidden"><div class="box">
-  <button class="close" onclick="closeCart()">×</button><h2>Votre panier</h2>
-  <div id="cartItems"></div><div class="total">Total : <strong id="cartTotal">0 DA</strong></div>
-  <button class="btn full" onclick="showOrder()">Commander</button>
-</div></div>
-
-<div id="orderModal" class="modal hidden"><div class="box">
-  <button class="close" onclick="closeOrder()">×</button><h2>Finaliser la commande</h2>
-  <form id="orderForm" onsubmit="submitOrder(event)">
-    <input name="name" required placeholder="Nom et prénom">
-    <input name="phone" required placeholder="Téléphone">
-    <input name="wilaya" required placeholder="Wilaya">
-    <input name="commune" required placeholder="Commune">
-    <textarea name="address" required placeholder="Adresse de livraison"></textarea>
-    <button class="btn full">Confirmer la commande</button>
-  </form>
-  <p class="note">Paiement à la livraison. Votre commande sera confirmée par téléphone.</p>
-</div></div>
-<script src="script.js"></script>
+  <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal-heading"><div><p class="eyebrow" id="detailRef">RÉCLAMATION</p><h2 id="detailTitle">Détail du dossier</h2></div><button class="close-button" data-close-detail aria-label="Fermer">×</button></div><div id="detailBody"></div></section></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
