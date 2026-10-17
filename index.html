@@ -22,7 +22,7 @@
         <button class="nav-item" data-view="public"><span class="nav-icon">↗</span> Portail public</button>
       </nav>
       <div class="sidebar-bottom">
-        <div class="demo-note"><span class="status-dot"></span><div><strong>Mode prototype</strong><small>Données fictives uniquement</small></div></div>
+        <div class="demo-note"><span class="status-dot"></span><div><strong>Espace sécurisé</strong><small>Données de votre entreprise</small></div></div>
         <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Paramètres</button>
         <div class="profile">
           <div class="avatar">AD</div><div class="profile-text"><strong>Administrateur</strong><small>Compte de démonstration</small></div><span class="profile-menu">•••</span>
@@ -35,7 +35,7 @@
         <button class="mobile-menu" id="mobileMenu" aria-label="Ouvrir le menu">☰</button>
         <div class="breadcrumb">Plateforme <span>/</span> <strong id="breadcrumbTitle">Tableau de bord</strong></div>
         <div class="top-actions">
-          <span class="demo-pill"><span></span> Démonstration</span>
+          <span class="demo-pill"><span></span> Connecté à Supabase</span><button class="secondary-button" id="logoutButton" type="button">Déconnexion</button>
           <button class="icon-button" id="helpButton" aria-label="Informations">?</button>
         </div>
       </header>
@@ -45,7 +45,7 @@
           <div><p class="eyebrow">VUE D'ENSEMBLE</p><h1>Bonjour, administrateur <span class="wave">👋</span></h1><p class="muted">Voici l'activité de votre plateforme de réclamations.</p></div>
           <button class="primary-button" id="newComplaintTop"><span>＋</span> Nouvelle réclamation</button>
         </div>
-        <div class="notice"><span class="notice-icon">i</span><div><strong>Prototype sans base de données</strong><p>Les dossiers ci-dessous sont fictifs. Les modifications sont enregistrées uniquement dans ce navigateur.</p></div><button class="notice-close" id="dismissNotice" aria-label="Masquer l'avis">×</button></div>
+        <div class="notice"><span class="notice-icon">i</span><div><strong>Base de données connectée</strong><p>Les dossiers affichés proviennent de votre espace entreprise. Les accès sont limités par les règles de sécurité Supabase.</p></div><button class="notice-close" id="dismissNotice" aria-label="Masquer l'avis">×</button></div>
         <div class="stats-grid">
           <article class="stat-card"><div class="stat-top"><span>Total des réclamations</span><span class="stat-icon indigo">▤</span></div><div class="stat-value" id="statTotal">8</div><div class="stat-foot"><span class="stat-neutral">Tous les dossiers</span></div></article>
           <article class="stat-card"><div class="stat-top"><span>À traiter</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="statOpen">5</div><div class="stat-foot"><span class="mini-dot orange-dot"></span> En attente d'action</div></article>
@@ -68,7 +68,7 @@
       </section>
 
       <section class="view" id="view-complaints">
-        <div class="page-heading"><div><p class="eyebrow">SUIVI OPÉRATIONNEL</p><h1>Réclamations</h1><p class="muted">Consultez, filtrez et mettez à jour les dossiers de démonstration.</p></div><button class="primary-button" id="newComplaintList"><span>＋</span> Nouvelle réclamation</button></div>
+        <div class="page-heading"><div><p class="eyebrow">SUIVI OPÉRATIONNEL</p><h1>Réclamations</h1><p class="muted">Consultez, filtrez et mettez à jour les réclamations de votre entreprise.</p></div><button class="primary-button" id="newComplaintList"><span>＋</span> Nouvelle réclamation</button></div>
         <section class="panel">
           <div class="filters">
             <div class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Rechercher une référence, un client…" aria-label="Rechercher"></div>
@@ -82,7 +82,7 @@
       </section>
 
       <section class="view" id="view-companies">
-        <div class="page-heading"><div><p class="eyebrow">ORGANISATIONS</p><h1>Entreprises</h1><p class="muted">Exemple d'annuaire des organisations utilisant la plateforme.</p></div><button class="primary-button" id="addCompanyButton"><span>＋</span> Ajouter une entreprise</button></div>
+        <div class="page-heading"><div><p class="eyebrow">ORGANISATIONS</p><h1>Entreprises</h1><p class="muted">Informations de votre entreprise.</p></div><button class="primary-button" id="addCompanyButton"><span>＋</span> Ajouter une entreprise</button></div>
         <div class="notice"><span class="notice-icon">i</span><div><strong>Annuaire fictif</strong><p>Ces entreprises sont des exemples et ne sont pas des clientes réelles de la plateforme.</p></div></div>
         <div class="company-grid" id="companyGrid"></div>
       </section>
@@ -98,16 +98,16 @@
 
       <section class="view" id="view-settings">
         <div class="page-heading"><div><p class="eyebrow">CONFIGURATION</p><h1>Paramètres</h1><p class="muted">Informations indicatives sur ce prototype.</p></div></div>
-        <div class="settings-grid"><section class="panel settings-panel"><h2>Profil de la plateforme</h2><p class="muted">Les paramètres ci-dessous ne sont pas connectés à un serveur.</p><label>Nom de la plateforme<input value="RéclaPro" disabled></label><label>Langue de l'interface<input value="Français" disabled></label><label>Mode de stockage<input value="Données de démonstration dans le navigateur" disabled></label><div class="settings-warning">Les comptes, permissions, emails, paiements et sauvegardes distantes ne sont pas encore implémentés.</div></section><section class="panel settings-panel"><h2>Données de démonstration</h2><p class="muted">Tu peux réinitialiser les exemples si tu souhaites recommencer.</p><button class="secondary-button" id="resetData">Réinitialiser les données de démonstration</button><p class="small-note">Cette action efface les modifications enregistrées localement dans ce navigateur.</p></section></div>
+        <div class="settings-grid"><section class="panel settings-panel"><h2>Profil de la plateforme</h2><p class="muted">Informations de session et de stockage.</p><label>Nom de la plateforme<input value="RéclaPro" disabled></label><label>Langue de l'interface<input value="Français" disabled></label><label>Mode de stockage<input value="Base de données Supabase" disabled></label><div class="settings-warning">Les comptes, permissions, emails, paiements et sauvegardes distantes ne sont pas encore implémentés.</div></section><section class="panel settings-panel"><h2>Données de démonstration</h2><p class="muted">Tu peux réinitialiser les exemples si tu souhaites recommencer.</p><button class="secondary-button" id="resetData">Réinitialiser les données de démonstration</button><p class="small-note">Cette action efface les modifications enregistrées localement dans ce navigateur.</p></section></div>
       </section>
 
-      <footer class="app-footer"><span>RéclaPro · Prototype initial</span><span>Pas encore destiné à des données réelles</span></footer>
+      <footer class="app-footer"><span>RéclaPro · Connecté à Supabase</span><span>Vérifiez vos paramètres avant toute mise en production</span></footer>
     </main>
   </div>
 
   <div class="modal-backdrop" id="complaintModal" hidden>
     <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-heading"><div><p class="eyebrow">NOUVEAU DOSSIER</p><h2 id="modalTitle">Créer une réclamation</h2><p class="muted">Les données resteront dans ce navigateur.</p></div><button class="close-button" data-close-modal aria-label="Fermer">×</button></div>
+      <div class="modal-heading"><div><p class="eyebrow">NOUVEAU DOSSIER</p><h2 id="modalTitle">Créer une réclamation</h2><p class="muted">La réclamation sera enregistrée dans Supabase.</p></div><button class="close-button" data-close-modal aria-label="Fermer">×</button></div>
       <form id="complaintForm">
         <div class="form-grid"><label>Nom du client *<input name="customer" required maxlength="80" placeholder="Ex. Amine B." /></label><label>Entreprise concernée *<select name="company" id="newCompanySelect" required></select></label><label>Catégorie *<select name="category" required><option value="">Sélectionner</option><option>Livraison</option><option>Retard</option><option>Facturation</option><option>Service client</option><option>Produit endommagé</option><option>Autre</option></select></label><label>Priorité<select name="priority"><option>Normale</option><option>Faible</option><option>Élevée</option><option>Urgente</option></select></label><label class="full-width">Objet de la réclamation *<input name="subject" required maxlength="120" placeholder="Résumez le problème en quelques mots" /></label><label class="full-width">Description *<textarea name="description" rows="4" required maxlength="1200" placeholder="Décrivez le problème (données fictives uniquement)…"></textarea></label></div>
         <div class="form-actions"><button type="button" class="secondary-button" data-close-modal>Annuler</button><button type="submit" class="primary-button">Créer le dossier</button></div>
@@ -117,6 +117,8 @@
 
   <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="modal-heading"><div><p class="eyebrow" id="detailRef">RÉCLAMATION</p><h2 id="detailTitle">Détail du dossier</h2></div><button class="close-button" data-close-detail aria-label="Fermer">×</button></div><div id="detailBody"></div></section></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -1,28 +1,23 @@
-BOUTIQUE DZ - VERSION SIMPLE
+# RéclaPro — première intégration Supabase
 
-1. Décompressez le dossier.
-2. Ouvrez index.html avec Chrome/Edge.
-3. Modifiez les produits dans script.js :
-   - name = nom
-   - price = prix en DA
-   - image = URL de l'image
-   - desc = description
+Cette version connecte le tableau de bord au projet Supabase `lfcdibgulsjrrctvtqbp`.
 
-IMPORTANT :
-Cette première version fonctionne sans serveur et sans base de données.
-Les commandes sont préparées côté navigateur et affichées comme confirmation.
-Pour recevoir automatiquement les commandes, il faudra ensuite connecter un formulaire à WhatsApp, Google Sheets, email ou une base de données.
+## Déploiement sur GitHub Pages
+1. Extrayez ce ZIP.
+2. Téléversez les fichiers et dossiers à l'intérieur de `reprosaas-de-main/` à la racine du dépôt GitHub, en remplaçant les fichiers existants. Ne téléversez pas seulement le ZIP.
+3. Attendez le déploiement GitHub Pages.
+4. Ouvrez `https://bbrahimbenali197-stack.github.io/reprosaas-de/auth.html`.
+5. Créez un compte de test. Si Supabase demande une confirmation par e-mail, confirmez puis reconnectez-vous. Si l'espace entreprise n'a pas été créé pendant l'inscription, le formulaire vous proposera de terminer cette étape.
 
-Pour mettre le site en ligne :
-- Netlify / GitHub Pages / hébergement web classique.
+## Ce qui est relié
+- Authentification e-mail / mot de passe avec Supabase Auth.
+- Création d'un espace entreprise via la fonction SQL `create_company_for_current_user`.
+- Lecture des réclamations de l'entreprise connectée.
+- Création de réclamations internes et mise à jour des statuts.
+- Déconnexion.
 
-
-VERSION 2 - WHATSAPP
-Dans script.js, trouve :
-const WHATSAPP_NUMBER="213XXXXXXXXX";
-
-Remplace-le par ton numéro WhatsApp au format international, sans +, espaces ou tirets.
-Exemple pour 0555 12 34 56 :
-const WHATSAPP_NUMBER="213555123456";
-
-Quand le client confirme, WhatsApp s'ouvre avec les produits, quantités, total et coordonnées de livraison.
+## Important
+- `config.js` contient uniquement l'URL du projet et sa clé publique publishable. N'ajoutez jamais une clé `service_role` dans le site.
+- Le formulaire de dépôt public anonyme n'est pas activé. Il nécessite une fonction serveur, validation et protection anti-abus.
+- Les statuts disponibles sont ceux du schéma Supabase actuel : Nouvelle, En cours, Résolue, Clôturée.
+- Cette première intégration a passé les vérifications de syntaxe JavaScript, mais doit encore être testée dans le navigateur après publication. N'utilisez pas de données personnelles réelles avant ces tests.
